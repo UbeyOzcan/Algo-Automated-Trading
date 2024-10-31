@@ -1,1 +1,2 @@
-# Algo-Automated-Trading
+# Algorithmic automated Trading
+
