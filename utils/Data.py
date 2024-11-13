@@ -15,12 +15,15 @@ class DataFactory:
         df.index = df.index.tz_localize(None)
         return df
 
-    def ao(self, df: pd.DataFrame) -> pd.DataFrame:
+    def ao(self, df: pd.DataFrame, w1: int, w2: int) -> pd.DataFrame:
         df_ao = momentum.awesome_oscillator(
             high=df[f'High|{self.tickers[0]}'],
-            low=df[f'Low|{self.tickers[0]}']).dropna()
+            low=df[f'Low|{self.tickers[0]}'],
+            window1=w1,
+            window2=w2).dropna()
         df_ao = pd.DataFrame(df_ao)
         df_ao.columns = [f'ao|{self.tickers[0]}']
         df = df.join(df_ao)
+        df.index = df.index.set_names(['Date'])
         df = df.dropna().reset_index()
         return df

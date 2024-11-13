@@ -1,15 +1,15 @@
 from utils.Data import DataFactory
-from utils.Strategy import Strategy
+from utils.Momentum import Momentum
 from utils.Plot import PlotStrategy
 import pandas as pd
 
-for i in ['AAPL']:
+for i in ['AAPL', 'MSFT']:
     d = DataFactory(tickers=[i],
-                    period=['2024-1-01', '2024-10-31'],
+                    period=['2024-01-01', '2024-10-31'],
                     interval='1d')
     df = d.get_stock_prices()
-    df = d.ao(df=df)
-    s = Strategy(tickers=d.tickers, trade_value=100)
+    df = d.ao(df=df, w1=5, w2=35)
+    s = Momentum(tickers=d.tickers, trade_value=100)
     ao_cross = s.crossover(df_cross=df)
     ao_saucers = s.saucers(df_saucers=df)
     p = PlotStrategy(data=df, tickers=d.tickers)

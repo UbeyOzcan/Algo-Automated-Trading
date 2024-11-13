@@ -1,7 +1,8 @@
+import numpy as np
 import pandas as pd
 
 
-class Strategy:
+class Momentum:
     def __init__(self, tickers: list, trade_value: int):
         self.trade_value = trade_value
         self.tickers = tickers
@@ -20,7 +21,7 @@ class Strategy:
                     "trade_size": current_trade["remaining_size"],
                     "exit_price": df_cross.iloc[i + 1][f'Open|{self.tickers[0]}'],
                     "exit_time": df_cross.iloc[i + 1].Date,
-                    "profit_pct": (df_cross.iloc[i + 1][f'Open|{self.tickers[0]}'] / current_trade["entry_price"]) - 1,
+                    "profit_pct": (df_cross.iloc[i + 1][f'Open|{self.tickers[0]}'] / current_trade["entry_price"]) - 1
                 })
 
                 current_trade = {}
